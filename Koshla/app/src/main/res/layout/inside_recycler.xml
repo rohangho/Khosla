@@ -18,19 +18,19 @@
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/temperature"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_weight="1"
-        android:textSize="30dp"
+        android:textSize="30sp"
         android:textStyle="bold" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/datetoShow"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_weight="1"
-        android:textSize="30dp"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
 

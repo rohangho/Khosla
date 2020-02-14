@@ -1,5 +1,6 @@
 package com.example.sampleweather.activity;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,13 +10,17 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.sampleweather.R;
+import com.example.sampleweather.adapter.BottomAdapter;
 import com.example.sampleweather.pojos.BaseResponse;
 import com.example.sampleweather.pojos.BottomTemp;
 import com.example.sampleweather.viewModel.MyViewModel;
 import com.example.sampleweather.viewModel.WeatherViewModel;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -29,13 +34,14 @@ import io.reactivex.schedulers.Schedulers;
 
 public class WeatherActivity extends AppCompatActivity {
     int ids;
+    Activity activity = this;
 
     WeatherViewModel weatherViewModel;
     private AppCompatTextView temperature;
     private AppCompatTextView date;
     private AppCompatImageView iconTemperature;
     private AppCompatButton showMore;
-    private List<BottomTemp> alltemp;
+    private List<BottomTemp> alltemp = new ArrayList<>();
 
 
     @Override
@@ -57,7 +63,16 @@ public class WeatherActivity extends AppCompatActivity {
         showMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               
+                BottomSheetDialog mBottomSheetDialog = new BottomSheetDialog(activity);
+                View sheetView = getLayoutInflater().inflate(R.layout.bottom_navigation, null);
+                mBottomSheetDialog.setContentView(sheetView);
+                mBottomSheetDialog.show();
+
+                RecyclerView recyclerView = sheetView.findViewById(R.id.recycler);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                recyclerView.setAdapter(new BottomAdapter(alltemp, getApplicationContext()));
+
+
             }
         });
 
@@ -94,14 +109,12 @@ public class WeatherActivity extends AppCompatActivity {
     private void getFiveDays(BaseResponse baseResponse) {
 
         Observable.fromCallable(() -> {
-
-                    List<BottomTemp> alltemp = new ArrayList<>();
                     for (int i = 0; i < baseResponse.getList().size(); i = i + 8) {
-                        BottomTemp bottomTemp = new BottomTemp(baseResponse.getList().get(0).getWeather().get(0).getIcon() + "@2x" + ".png",
+                        BottomTemp bottomTemp = new BottomTemp(baseResponse.getList().get(i).getWeather().get(0).getIcon() + "@2x" + ".png",
                                 new DecimalFormat("##.##").format(baseResponse.getList().get(i).getMain().getTemp() - 273.15),
-                                baseResponse.getList().get(0).getDtTxt());
+                                baseResponse.getList().get(i).getDtTxt());
                         alltemp.add(bottomTemp);
-                        if (alltemp.size() > 0)
+                        if (alltemp.size() > 5)
                             break;
                     }
 
@@ -114,7 +127,8 @@ public class WeatherActivity extends AppCompatActivity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> Log.e("Exception", throwable.getMessage()))
                 .subscribe((alltemp) -> {
-                    alltemp = alltemp;
+                    if (alltemp.size() > 0)
+                        showMore.setVisibility(View.VISIBLE);
                 }, (throwable) -> Log.e("Exception", throwable.getMessage()));
     }
 
