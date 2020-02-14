@@ -90,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             InputMethodManager in = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                             in.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0);
+                            submit.setVisibility(View.VISIBLE);
                             for (int i = 0; i < nameCity.length; i++) {
                                 if (autoCompleteTextView.getText().toString().equalsIgnoreCase(nameCity[i])) {
                                     idSelected = i;

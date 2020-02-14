@@ -16,19 +16,19 @@ public class MainInformation {
     private Double tempMax;
     @SerializedName("pressure")
     @Expose
-    private Integer pressure;
+    private Double pressure;
     @SerializedName("sea_level")
     @Expose
     private Double seaLevel;
     @SerializedName("grnd_level")
     @Expose
-    private Integer grndLevel;
+    private Double grndLevel;
     @SerializedName("humidity")
     @Expose
     private Integer humidity;
     @SerializedName("temp_kf")
     @Expose
-    private Integer tempKf;
+    private Double tempKf;
 
     /**
      * No args constructor for use in serialization
@@ -46,7 +46,7 @@ public class MainInformation {
      * @param grndLevel
      * @param tempMin
      */
-    public MainInformation(Double temp, Double tempMin, Double tempMax, Integer pressure, Double seaLevel, Integer grndLevel, Integer humidity, Integer tempKf) {
+    public MainInformation(Double temp, Double tempMin, Double tempMax, Double pressure, Double seaLevel, Double grndLevel, Integer humidity, Double tempKf) {
         super();
         this.temp = temp;
         this.tempMin = tempMin;
@@ -82,11 +82,11 @@ public class MainInformation {
         this.tempMax = tempMax;
     }
 
-    public Integer getPressure() {
+    public Double getPressure() {
         return pressure;
     }
 
-    public void setPressure(Integer pressure) {
+    public void setPressure(Double pressure) {
         this.pressure = pressure;
     }
 
@@ -98,11 +98,11 @@ public class MainInformation {
         this.seaLevel = seaLevel;
     }
 
-    public Integer getGrndLevel() {
+    public Double getGrndLevel() {
         return grndLevel;
     }
 
-    public void setGrndLevel(Integer grndLevel) {
+    public void setGrndLevel(Double grndLevel) {
         this.grndLevel = grndLevel;
     }
 
@@ -114,11 +114,11 @@ public class MainInformation {
         this.humidity = humidity;
     }
 
-    public Integer getTempKf() {
+    public Double getTempKf() {
         return tempKf;
     }
 
-    public void setTempKf(Integer tempKf) {
+    public void setTempKf(Double tempKf) {
         this.tempKf = tempKf;
     }
 
