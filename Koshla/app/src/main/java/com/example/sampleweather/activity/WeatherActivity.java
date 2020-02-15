@@ -67,7 +67,6 @@ public class WeatherActivity extends AppCompatActivity {
                 View sheetView = getLayoutInflater().inflate(R.layout.bottom_navigation, null);
                 mBottomSheetDialog.setContentView(sheetView);
                 mBottomSheetDialog.show();
-
                 RecyclerView recyclerView = sheetView.findViewById(R.id.recycler);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                 recyclerView.setAdapter(new BottomAdapter(alltemp, getApplicationContext()));
