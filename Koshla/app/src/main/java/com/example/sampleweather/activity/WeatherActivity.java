@@ -62,11 +62,16 @@ public class WeatherActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 lottieAnimationView.setVisibility(View.GONE);
-                retryCalling();
+
             }
+
+
         });
 
-        retryCalling();
+        MyViewModel factory = new MyViewModel(this.getApplication(), Integer.toString(ids));
+        weatherViewModel = ViewModelProviders.of(this, factory).get(WeatherViewModel.class);
+        weatherViewModel.init();
+        weatherViewModel.getWeatherRepo().observe(this, this::getResponsFromLiveData);
         showMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,13 +93,8 @@ public class WeatherActivity extends AppCompatActivity {
     /**
      * Retry calling for weather
      */
-    private void retryCalling() {
-        MyViewModel factory = new MyViewModel(this.getApplication(), Integer.toString(ids));
-        weatherViewModel = ViewModelProviders.of(this, factory).get(WeatherViewModel.class);
-        weatherViewModel.init();
-        weatherViewModel.getWeatherRepo().observe(this, this::getResponsFromLiveData);
 
-    }
+
     /**
      * This function
      *
