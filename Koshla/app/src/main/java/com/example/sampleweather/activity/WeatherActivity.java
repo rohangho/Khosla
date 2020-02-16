@@ -57,21 +57,21 @@ public class WeatherActivity extends AppCompatActivity {
         date = findViewById(R.id.date);
         showMore = findViewById(R.id.showMore);
         lottieAnimationView = findViewById(R.id.animation_view);
+        retryCall();
+
+
 
         lottieAnimationView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 lottieAnimationView.setVisibility(View.GONE);
-
+                retryCall();
             }
 
 
         });
 
-        MyViewModel factory = new MyViewModel(this.getApplication(), Integer.toString(ids));
-        weatherViewModel = ViewModelProviders.of(this, factory).get(WeatherViewModel.class);
-        weatherViewModel.init();
-        weatherViewModel.getWeatherRepo().observe(this, this::getResponsFromLiveData);
+
         showMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,6 +93,15 @@ public class WeatherActivity extends AppCompatActivity {
     /**
      * Retry calling for weather
      */
+
+
+    private void retryCall() {
+        MyViewModel factory = new MyViewModel(this.getApplication(), Integer.toString(ids));
+        weatherViewModel = ViewModelProviders.of(this, factory).get(WeatherViewModel.class);
+        weatherViewModel.init();
+        weatherViewModel.getWeatherRepo().observe(this, this::getResponsFromLiveData);
+    }
+
 
 
     /**
