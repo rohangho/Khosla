@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
@@ -125,6 +126,7 @@ public class WeatherActivity extends AppCompatActivity {
             getFiveDays(baseResponse);
         } else {
             lottieAnimationView.setVisibility(View.VISIBLE);
+            Toast.makeText(getApplicationContext(), "Tap to Retry", Toast.LENGTH_SHORT).show();
         }
 
 
