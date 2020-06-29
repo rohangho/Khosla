@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -98,7 +98,7 @@ public class WeatherActivity extends AppCompatActivity {
 
     private void retryCall() {
         MyViewModel factory = new MyViewModel(this.getApplication(), Integer.toString(ids));
-        weatherViewModel = ViewModelProviders.of(this, factory).get(WeatherViewModel.class);
+        weatherViewModel = new ViewModelProvider(this, factory).get(WeatherViewModel.class);
         weatherViewModel.init();
         weatherViewModel.getWeatherRepo().observe(this, this::getResponsFromLiveData);
     }
